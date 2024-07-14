@@ -3,7 +3,8 @@ import { AuthContext } from "../../context/auth";
 import { FirebaseContext } from "../../context/firebaseAppContext";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { fromChamado, IChamadoEntity } from "../../entities/chamadoEntity";
-import { BuildHora } from "./utils/buildHora";
+import { BuildHoraChamado } from "./utils/buildHoraChamado";
+import ModalChamado from "../../components/modalChamado";
 
 const Home = () => {
 
@@ -22,35 +23,39 @@ const Home = () => {
     const { user } = authContext;
     const { db } = firebaseContext;
     const [chamados, setChamados] = useState<IChamadoEntity[]>([]);
+    const [chosenChamado, setChosenChamado] = useState<IChamadoEntity | undefined>(undefined);
 
     useEffect(() => {
+
+        console.log('rodou useEffect de home');
+
 
         const q = query(collection(db, "chamado"), where("garcom_id", "==", user), where("status", "==", "ATIVO"));
         onSnapshot(q, (querySnapshot) => {
             const chmdos: IChamadoEntity[] = [];
             querySnapshot.forEach((doc) => {
-                // const chmd: IChamadoEntity = {
-                //     id: doc.id,
-                //     hora: doc.data().hora,
-                //     status: doc.data().status,
-                //     tipo: doc.data().tipo,
-                //     mesaNumero: doc.data().mesa.numero,
-                //     mesaId: doc.data().mesa.id
-                // };
+                
                 const chmd: IChamadoEntity = fromChamado(doc.data(), doc.id)
+                
                 chmdos.push(chmd);
             });
             setChamados(chmdos);
         });
-    });
+    }, [db, user]);
 
+
+    function closeChamado(){
+        setChosenChamado(undefined);
+    }
 
     return (
         <div>
             page home
             {chamados && chamados.map((chamado) => {
-                return <div key={chamado.id}><p>{BuildHora(chamado.hora)}</p></div>
+                return <div key={chamado.id} onClick={() => {setChosenChamado(chamado)}}><p>{BuildHoraChamado(chamado.hora)}</p></div>
             })}
+            {chosenChamado && <ModalChamado chamado={{...chosenChamado}} handleClose={closeChamado} />}
+            <button onClick={() => {setChosenChamado(undefined)}}>fechar</button>
         </div>
     );
 }

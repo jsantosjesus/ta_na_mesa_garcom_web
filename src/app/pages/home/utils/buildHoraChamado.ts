@@ -1,4 +1,4 @@
-export const BuildHora = (hora: Date): string => {
+export const BuildHoraChamado = (hora: Date): string => {
 
     const now: Date = new Date();
 
