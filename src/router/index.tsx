@@ -4,6 +4,7 @@ import Login from '../app/pages/login';
 import Home from '../app/pages/home';
 import { AuthContext } from '../app/context/auth';
 import Splash from '../app/pages/splash';
+import Mesas from '../app/pages/mesas';
 
 interface PrivateProps {
   children: ReactNode;
@@ -58,6 +59,14 @@ const Rotas: React.FC = () => {
         element={
           <Private isLoginPage={false}>
             <Home />
+          </Private>
+        }
+      />
+      <Route
+        path="/mesas"
+        element={
+          <Private isLoginPage={false}>
+            <Mesas />
           </Private>
         }
       />

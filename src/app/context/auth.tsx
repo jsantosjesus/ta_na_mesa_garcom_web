@@ -9,6 +9,8 @@ type IParamsLogin = {
 
 type AuthContextType = {
     user: string;
+    userName: string;
+    setUserName: React.Dispatch<React.SetStateAction<string>>;
     login: (params: IParamsLogin, isManual: boolean) => void;
     logout: () => void;
     error: string;
@@ -26,6 +28,7 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<string>('');
+    const [userName, setUserName] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [notAuthStorage, setNotAuthStorage] = useState<boolean>(false);
 
@@ -62,7 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, error, setError, notAuthStorage, setNotAuthStorage }}>
+        <AuthContext.Provider value={{ user, userName, setUserName, login, logout, error, setError, notAuthStorage, setNotAuthStorage }}>
             {children}
         </AuthContext.Provider>
     );

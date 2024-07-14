@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { IChamadoEntity } from "../../entities/chamadoEntity";
-import { BuildTitleChamado } from "../../pages/home/utils/buildTitleChamado";
+import BuildTitleChamado from "../buildTitleChamado";
 import { FirebaseContext } from "../../context/firebaseAppContext";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -47,7 +47,7 @@ const ModalChamado = (params: IParamsModalChamado) => {
 
     return (
         <div>
-            {BuildTitleChamado(params.chamado.tipo, params.chamado.mesaNumero)}
+            <BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} />
             {loading ? <p>loading...</p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
         </div>
     );
