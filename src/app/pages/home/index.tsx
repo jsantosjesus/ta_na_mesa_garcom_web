@@ -4,7 +4,6 @@ import { FirebaseContext } from "../../context/firebaseAppContext";
 import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
 import { fromChamado, IChamadoEntity } from "../../entities/chamadoEntity";
 import ModalChamado from "../../components/modalChamado";
-import { Link } from "react-router-dom";
 import MenuBar from "../../components/menuBar";
 import BuildHoraChamado from "../../components/buildHoraChamado";
 import BuildTitleChamado from "../../components/buildTitleChamado";
@@ -43,7 +42,6 @@ const Home = () => {
 
                 chmdos.push(chmd);
             });
-            console.log(chmdos);
             setChamados(chmdos);
             setLoading(false);
         });
@@ -70,7 +68,6 @@ const Home = () => {
         <div>
             <MenuBar />
             page home
-            <Link to="/mesas">Mesas</Link>
             {loading ? <p>loading...</p> : chamados.map((chamado) => {
                 return <div key={chamado.id} onClick={() => { setChosenChamado(chamado) }}>
                     <BuildTitleChamado tipo={chamado.tipo} mesaNumero={chamado.mesaNumero} />

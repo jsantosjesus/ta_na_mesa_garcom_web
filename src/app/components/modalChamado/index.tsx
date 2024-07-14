@@ -41,10 +41,6 @@ const ModalChamado = (params: IParamsModalChamado) => {
 
     }
 
-
-
-
-
     return (
         <div>
             <BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} />

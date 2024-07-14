@@ -11,9 +11,11 @@ const BuildHoraChamado = (params: IParamsBuildHoraChamado) => {
 
     useEffect(() => {
 
-        setInterval(() => {
+        const intervalo = setInterval(() => {
             setNow(new Date());
         }, 10000);
+
+        return () => clearInterval(intervalo);
     })
 
 

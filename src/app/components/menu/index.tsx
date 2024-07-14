@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
     const authContext = useContext(AuthContext);
@@ -13,6 +14,8 @@ const {userName} = authContext;
  return (
 <div>
     {userName}
+    <p><Link to={'/mesas'}>mesas</Link></p>
+    <p><Link to={'/'}>home</Link></p>
 </div>
 );
  }
