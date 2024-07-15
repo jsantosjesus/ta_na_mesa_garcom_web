@@ -7,6 +7,8 @@ import { fromMesa, IMesaEntity } from "../../entities/mesaEntity";
 import Conta from "../conta";
 import Menu from "../../components/menu";
 
+import '../../styles/pages/mesas.sass'
+
 const Mesas = () => {
 
 
@@ -58,16 +60,15 @@ const Mesas = () => {
 
 
     return (
-        <div>
+        <div id="mesasBody">
             {!contaOpen ?
                 <>
                     <Menu title="Mesas" />
                     {loading ? <p>loading...</p> :
 
                         mesas.map((mesa) => {
-                            return <div onClick={() => openContaPage(mesa)} key={mesa.id}>
-                                <p>{mesa.numero}</p>
-                                {mesa.contaAtiva}
+                            return <div onClick={() => openContaPage(mesa)} key={mesa.id} className={`mesa ${mesa.contaAtiva ? "ocupada" : "livre"}`}>
+                                <h2>Mesa {mesa.numero}</h2>
                             </div>
                         })
                     }
