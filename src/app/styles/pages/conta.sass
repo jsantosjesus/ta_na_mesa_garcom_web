@@ -1,0 +1,50 @@
+@use '../variables'
+@use '../mixins'
+
+#contaBody
+
+
+    .navBar
+        display: flex
+        // padding: 10px
+        height: 10vh
+        align-content: center
+        align-items: center
+
+        svg
+            font-size: 40px
+
+        
+        .titleNavBar
+            margin-left: 40px
+
+    .pedidos 
+        max-height: 70vh
+        overflow-y: auto
+
+        .divProduto
+            padding: 5px 3px 5px 3px
+            display: flex
+            justify-content: space-between
+
+    .divTotalConta
+        text-align: center
+        position: fixed
+        bottom: 0
+        left: 0
+        width: 100vw
+        height: 20vh
+        padding-top: 10px
+        border-radius: 5px 5px 0 0
+        background-color: variables.$text-color
+        box-shadow: 0 -6px 6px -4px rgba(0, 0, 0, 0.3)
+
+        .total
+            display: flex
+            justify-content: space-around
+
+        button
+            @include mixins.btn
+            margin-top: 25px
+
+    

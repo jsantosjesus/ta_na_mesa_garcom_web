@@ -3,6 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { fromPedido, IPedidoEntity } from "../../entities/pedidoEntity";
 import { FirebaseContext } from "../../context/firebaseAppContext";
 import { IMesaEntity } from "../../entities/mesaEntity";
+import { IoArrowBack } from "react-icons/io5";
+
+import '../../styles/pages/conta.sass'
 
 type IParamsConta = {
     mesa: IMesaEntity
@@ -23,6 +26,8 @@ const Conta = (params: IParamsConta) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [pedidos, setPedidos] = useState<IPedidoEntity[]>([]);
 
+    let totalConta: number = 0;
+
     useEffect(() => {
 
         console.log('rodou useEffect de conta');
@@ -31,12 +36,16 @@ const Conta = (params: IParamsConta) => {
         const q = query(collection(db, "pedido"), where("conta_id", "==", params.mesa.contaAtiva), where("status", "==", "pronto"));
         onSnapshot(q, (querySnapshot) => {
             const pddos: IPedidoEntity[] = [];
+            // console.log(querySnapshot)
             querySnapshot.forEach((doc) => {
 
                 const pddo: IPedidoEntity = fromPedido(doc.data())
 
+                // totalConta = totalConta + pddo.total;
+
                 pddos.push(pddo);
             });
+            // console.log("pedidos: " + pddos)
             setPedidos(pddos);
             setLoading(false);
         });
@@ -58,30 +67,45 @@ const Conta = (params: IParamsConta) => {
 
             params.handleClose();
 
-        } catch (e){
+        } catch (e) {
             console.log('Erro: ' + e)
         }
     }
 
 
     return (
-        <div>
-            <div><p onClick={params.handleClose}>{"<"}</p><p>Conta da mesa{params.mesa.numero}</p></div>
-            {loading ? <>loading...</> : pedidos.map((pedido, index) => {
-                return <div key={index}>{pedido.produtos.map((produto) => {
-                    return <div key={produto.id}>
-                        <p>{produto.quantidade}</p>
-                        <p>{produto.nome}</p>
-                        <p>R${produto.preco.toFixed(2).replace('.', ',')} = R$ {(produto.quantidade * produto.preco).toFixed(2).replace('.', ',')}</p>
-                    </div>
-                })}
-                <div>
-                    <p>Total</p>
-                    <p>R$ {pedido.total.toFixed(2).replace('.', ',')}</p>
-                    <button onClick={pagarConta}>Conta paga</button>
+        <div id="contaBody">
+            <div className="navBar">
+                <p onClick={params.handleClose}>
+                    <IoArrowBack />
+                </p>
+                <h3 className="titleNavBar">
+                    Conta da mesa {params.mesa.numero}
+                </h3>
+            </div>
+            {loading ?
+                <>loading...</> :
+                <div className="pedidos">
+                    {pedidos.map((pedido, index) => {
+                        totalConta = totalConta + pedido.total;
+                        return <div key={index}>{pedido.produtos.map((produto) => {
+                            return <div key={produto.id} className="divProduto">
+                                <p>{produto.quantidade}</p>
+                                <p>{produto.nome}</p>
+                                <p>R${produto.preco.toFixed(2).replace('.', ',')} = R$ {(produto.quantidade * produto.preco).toFixed(2).replace('.', ',')}</p>
+                            </div>
+                        })}
+                        </div>
+                    })}
                 </div>
+            }
+            <div className="divTotalConta">
+                <div className="total">
+                    <h4>Total</h4>
+                    <h4>R$ {totalConta.toFixed(2).replace('.', ',')}</h4>
                 </div>
-            })}
+                <button onClick={pagarConta}>Conta paga</button>
+            </div>
         </div>
     );
 }
