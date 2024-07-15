@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useState, ReactNode } from 'react';
 // import { Navigate } from 'react-router-dom';
 
@@ -60,8 +60,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem(_key);
-        setUser('');
+        
+        const auth = getAuth();
+
+        signOut(auth).then(() => {
+            localStorage.removeItem(_key);
+            setUser('');
+          }).catch(() => {
+            console.log('error');
+          });
     };
 
     return (

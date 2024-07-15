@@ -1,0 +1,33 @@
+@use '../mixins'
+
+#modalChamadoBody
+    position: relative
+
+    .transparent
+        background-color: rgba(0, 0, 0, 0.4)
+        position: fixed
+        top: 0
+        left: 0
+        height: 60vh
+        width: 100vw
+        z-index: 10
+
+    .modal
+        background-color: white
+        position: fixed
+        bottom: 0
+        left: 0
+        height: 40vh
+        width: 100vw
+        z-index: 10
+        text-align: center
+        align-content: center
+
+        p
+         margin-top: 40px
+
+        button
+          @include mixins.btn
+          margin-top: 40px
+            
+                

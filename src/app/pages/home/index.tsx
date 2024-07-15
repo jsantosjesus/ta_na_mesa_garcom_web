@@ -4,9 +4,13 @@ import { FirebaseContext } from "../../context/firebaseAppContext";
 import { collection, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
 import { fromChamado, IChamadoEntity } from "../../entities/chamadoEntity";
 import ModalChamado from "../../components/modalChamado";
-import MenuBar from "../../components/menuBar";
+import { PiForkKnifeFill } from "react-icons/pi";
 import BuildHoraChamado from "../../components/buildHoraChamado";
 import BuildTitleChamado from "../../components/buildTitleChamado";
+import Menu from "../../components/menu";
+
+
+import '../../styles/pages/home.sass'
 
 const Home = () => {
 
@@ -65,17 +69,22 @@ const Home = () => {
     }
 
     return (
-        <div>
-            <MenuBar />
-            page home
-            {loading ? <p>loading...</p> : chamados.map((chamado) => {
-                return <div key={chamado.id} onClick={() => { setChosenChamado(chamado) }}>
-                    <BuildTitleChamado tipo={chamado.tipo} mesaNumero={chamado.mesaNumero} />
-                    <BuildHoraChamado hora={chamado.hora} />
-                </div>
-            })}
+        <div id="bodyHome">
+            <Menu title="Chamados" />
+            {loading
+                ? <p>loading...</p>
+                : chamados.map((chamado) => {
+                    return <div key={chamado.id} onClick={() => { setChosenChamado(chamado) }} className="chamado">
+                        <div className="chamadoIcon">
+                            <PiForkKnifeFill />
+                        </div>
+                        <div className="chamadoTitleAndSubtitle">
+                            <BuildTitleChamado tipo={chamado.tipo} mesaNumero={chamado.mesaNumero} />
+                            <BuildHoraChamado hora={chamado.hora} />
+                        </div>
+                    </div>
+                })}
             {chosenChamado && <ModalChamado chamado={{ ...chosenChamado }} handleClose={closeChamado} />}
-            {/* <button onClick={() => { setChosenChamado(undefined) }}>fechar</button> */}
         </div>
     );
 }

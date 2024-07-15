@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/auth";
 import { Navigate } from "react-router-dom";
 
+import '../../styles/pages/splash.sass'
+
 type IParamsLogin = {
     email: string,
     password: string
@@ -40,7 +42,7 @@ const Splash = () => {
     });
     
     return (
-        <div>
+        <div id="bodySplash">
     loading...
     {notAuthStorage && <Navigate to="/login" />}
     

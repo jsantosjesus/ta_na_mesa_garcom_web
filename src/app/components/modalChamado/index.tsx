@@ -4,6 +4,8 @@ import BuildTitleChamado from "../buildTitleChamado";
 import { FirebaseContext } from "../../context/firebaseAppContext";
 import { doc, updateDoc } from "firebase/firestore";
 
+import '../../styles/components/modalChamado.sass';
+
 type IParamsModalChamado = {
     chamado: IChamadoEntity,
     handleClose: () => void
@@ -12,11 +14,11 @@ type IParamsModalChamado = {
 const ModalChamado = (params: IParamsModalChamado) => {
 
     const firebaseContext = useContext(FirebaseContext);
-    
+
     if (!firebaseContext) {
         throw new Error('firebase must be used within an firebaseProvider');
     }
-    
+
     const { db } = firebaseContext;
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,16 +37,20 @@ const ModalChamado = (params: IParamsModalChamado) => {
 
             params.handleClose();
 
-        } catch (e){
+        } catch (e) {
             console.log('Erro: ' + e)
         }
 
     }
 
     return (
-        <div>
-            <BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} />
-            {loading ? <p>loading...</p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
+        <div id="modalChamadoBody">
+            <div className="transparent"  onClick={params.handleClose}/>
+
+            <div className="modal">
+                <b><BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} /></b>
+                {loading ? <p>loading...</p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
+            </div>
         </div>
     );
 }

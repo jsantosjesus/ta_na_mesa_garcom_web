@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+
+import '../../styles/pages/home.sass';
+
 type IParamsBuildHoraChamado = {
     hora: Date
 }
@@ -43,7 +46,7 @@ const BuildHoraChamado = (params: IParamsBuildHoraChamado) => {
 
 
     return (
-        <p>
+        <p id="subTitleChamado">
             {buildHora}
         </p>
     );

@@ -3,8 +3,9 @@ import { FirebaseContext } from "../../context/firebaseAppContext";
 import { AuthContext } from "../../context/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { fromMesa, IMesaEntity } from "../../entities/mesaEntity";
-import MenuBar from "../../components/menuBar";
+// import MenuBar from "../../components/menuBar";
 import Conta from "../conta";
+import Menu from "../../components/menu";
 
 const Mesas = () => {
 
@@ -60,7 +61,7 @@ const Mesas = () => {
         <div>
             {!contaOpen ?
                 <>
-                    <MenuBar />
+                    <Menu title="Mesas" />
                     {loading ? <p>loading...</p> :
 
                         mesas.map((mesa) => {

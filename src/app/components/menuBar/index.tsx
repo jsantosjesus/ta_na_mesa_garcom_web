@@ -1,17 +1,17 @@
-import { useState } from "react";
-import Menu from "../menu";
+// import { useState } from "react";
+// import Menu from "../menu";
 
-const MenuBar = () => {
+// const MenuBar = () => {
 
-    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+//     const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
 
 
- return (
-<div>
-    <button onClick={() => setMenuOpen(true)}>abrir menu</button>
-    {menuOpen && <Menu />}
-</div>
-);
- }
- export default MenuBar;
+//  return (
+// <div>
+//     <button onClick={() => setMenuOpen(true)}>abrir menu</button>
+//     {/* {menuOpen && <Menu />} */}
+// </div>
+// );
+//  }
+//  export default MenuBar;

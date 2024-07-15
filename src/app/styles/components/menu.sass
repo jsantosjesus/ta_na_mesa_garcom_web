@@ -1,0 +1,111 @@
+@use '../variables'
+    
+#hamburgerMenu
+  position: relative
+  background-color: variables.$primary-color
+  height: 8vh
+  align-content: center
+  align-items: center
+  justify-content: space-between
+  display: flex
+  color: variables.$text-color
+
+.logout
+    margin-right: 20px
+    font-size: 20px
+
+#menuTitle
+    // margin-left: 40px
+    // color: variables.$text-color
+
+
+.hamburger
+  margin-left: 10px
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  width: 30px
+  height: 30px
+  background: transparent
+  border: none
+  cursor: pointer
+  padding: 0
+  z-index: 10
+
+  .line
+    width: 30px
+    height: 4px
+    border-radius: 10px
+    background: variables.$text-color
+    transition: all 0.3s linear
+  
+
+  .open
+    &:nth-child(1)
+      transform: rotate(45deg) translate(7px, 7px)
+    
+    &:nth-child(2)
+      opacity: 0
+    
+    &:nth-child(3)
+      transform: rotate(-45deg) translate(6px, -6px)
+    
+  
+
+
+.nav
+  display: block
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  position: fixed
+  top: 8vh
+  left: 0
+  width: 0
+  height: 92vh
+  overflow: hidden
+  background: variables.$primary-color
+  transition: width 0.3s ease
+
+  &.open
+    width: 200px
+
+  #userName
+    margin: 30px 0 30px 20px
+    font-size: 18px
+    color: variables.$text-color
+
+  .links
+    font-size: 20px
+    margin: 10px
+    padding-left: 20px
+    padding-top: 17px
+    padding-bottom: 17px
+    color: variables.$text-color
+    text-decoration: none
+    display: flex
+    background-color: rgba(10, 10, 10, 0.2)
+    border-radius: 5px
+
+    p
+        margin-left: 10px
+        font-size: 20px
+        color: variables.$text-color
+
+
+//   ul
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+
+//     li {
+//       margin: 15px 0;
+
+//       a {
+//         text-decoration: none;
+//         color: #333;
+//         font-size: 18px;
+//       }
+//     }
+  
+

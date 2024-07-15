@@ -1,4 +1,7 @@
 
+
+import '../../styles/pages/home.sass'
+
 type IParamsBuildTitleChamado = {
     tipo: string,
     mesaNumero: string
@@ -27,7 +30,7 @@ const BuildTitleChamado = (params: IParamsBuildTitleChamado) => {
 
 
     return (
-        <p>
+        <p id="titleChamado">
             {buildTitle}
         </p>
     );
