@@ -1,6 +1,5 @@
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useState, ReactNode } from 'react';
-// import { Navigate } from 'react-router-dom';
 
 type IParamsLogin = {
     email: string,
@@ -44,13 +43,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, params.email, params.password)
             .then((userCredential) => {
-
+                setLoading(false);
                 const uid: string = userCredential.user.uid;
                 setUser(uid);
 
                 if (isManual) {
                     localStorage.setItem(_key, JSON.stringify(params));
                 }
+
             })
             .catch((error) => {
                 if (error.code == 'auth/invalid-credential') {

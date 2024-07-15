@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { AuthContext } from "../../context/auth";
 import taNaMesaLogo from "../../assets/taNaMesaLogo.png";
+import CircularProgress from '@mui/material/CircularProgress';
 
 import '../../styles/pages/login.sass';
 
@@ -56,7 +57,7 @@ const Login = () => {
                 <input {...register("email")} placeholder='Seu email'/>
                 {<p id='error'>{errors.password?.message}</p>}
                 <input {...register("password")} placeholder='Sua senha'/>
-                {loading ? <p>loading...</p> : <input type="submit" className='btnForm' />}
+                {loading ?  <p><CircularProgress color='inherit'/></p> : <input type="submit" className='btnForm' />}
             </form>
             <p id='error'>{error}</p>
             </div>

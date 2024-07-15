@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/auth";
 import { Navigate } from "react-router-dom";
 
 import '../../styles/pages/splash.sass'
+import { CircularProgress } from "@mui/material";
 
 type IParamsLogin = {
     email: string,
@@ -43,7 +44,7 @@ const Splash = () => {
     
     return (
         <div id="bodySplash">
-    loading...
+    <CircularProgress color="inherit" />
     {notAuthStorage && <Navigate to="/login" />}
     
 </div>

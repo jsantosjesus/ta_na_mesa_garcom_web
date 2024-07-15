@@ -6,6 +6,7 @@ import { IMesaEntity } from "../../entities/mesaEntity";
 import { IoArrowBack } from "react-icons/io5";
 
 import '../../styles/pages/conta.sass'
+import { CircularProgress } from "@mui/material";
 
 type IParamsConta = {
     mesa: IMesaEntity
@@ -53,7 +54,7 @@ const Conta = (params: IParamsConta) => {
     }, [db, params.mesa]);
 
     async function pagarConta() {
-
+        setLoading(true);
         const agora = new Date();
 
         try {
@@ -65,10 +66,13 @@ const Conta = (params: IParamsConta) => {
                 contaAtiva: '',
             });
 
+            setLoading(false);
+
             params.handleClose();
 
         } catch (e) {
-            console.log('Erro: ' + e)
+            console.log('Erro: ' + e);
+            setLoading(false);
         }
     }
 
@@ -84,7 +88,7 @@ const Conta = (params: IParamsConta) => {
                 </h3>
             </div>
             {loading ?
-                <>loading...</> :
+                <div className="loading"><CircularProgress color="inherit" /></div> :
                 <div className="pedidos">
                     {pedidos.map((pedido, index) => {
                         totalConta = totalConta + pedido.total;
@@ -104,7 +108,7 @@ const Conta = (params: IParamsConta) => {
                     <h4>Total</h4>
                     <h4>R$ {totalConta.toFixed(2).replace('.', ',')}</h4>
                 </div>
-                <button onClick={pagarConta}>Conta paga</button>
+                {loading ? <p><CircularProgress color="inherit" /></p> : <button onClick={pagarConta}>Conta paga</button>}
             </div>
         </div>
     );

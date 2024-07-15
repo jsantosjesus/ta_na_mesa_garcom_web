@@ -5,6 +5,7 @@ import { FirebaseContext } from "../../context/firebaseAppContext";
 import { doc, updateDoc } from "firebase/firestore";
 
 import '../../styles/components/modalChamado.sass';
+import { CircularProgress } from "@mui/material";
 
 type IParamsModalChamado = {
     chamado: IChamadoEntity,
@@ -49,7 +50,7 @@ const ModalChamado = (params: IParamsModalChamado) => {
 
             <div className="modal">
                 <b><BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} /></b>
-                {loading ? <p>loading...</p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
+                {loading ? <p><CircularProgress color="inherit"/></p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
             </div>
         </div>
     );

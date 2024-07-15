@@ -8,6 +8,7 @@ import Conta from "../conta";
 import Menu from "../../components/menu";
 
 import '../../styles/pages/mesas.sass'
+import { CircularProgress } from "@mui/material";
 
 const Mesas = () => {
 
@@ -64,7 +65,7 @@ const Mesas = () => {
             {!contaOpen ?
                 <>
                     <Menu title="Mesas" />
-                    {loading ? <p>loading...</p> :
+                    {loading ? <div className="loading"><CircularProgress color="inherit"/></div> :
 
                         mesas.map((mesa) => {
                             return <div onClick={() => openContaPage(mesa)} key={mesa.id} className={`mesa ${mesa.contaAtiva ? "ocupada" : "livre"}`}>

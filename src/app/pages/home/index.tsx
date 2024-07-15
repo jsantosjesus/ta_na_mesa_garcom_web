@@ -11,6 +11,7 @@ import Menu from "../../components/menu";
 
 
 import '../../styles/pages/home.sass'
+import { CircularProgress } from "@mui/material";
 
 const Home = () => {
 
@@ -72,7 +73,7 @@ const Home = () => {
         <div id="bodyHome">
             <Menu title="Chamados" />
             {loading
-                ? <p>loading...</p>
+                ? <div className="loading"><CircularProgress color="inherit" /></div>
                 : chamados.map((chamado) => {
                     return <div key={chamado.id} onClick={() => { setChosenChamado(chamado) }} className="chamado">
                         <div className="chamadoIcon">
