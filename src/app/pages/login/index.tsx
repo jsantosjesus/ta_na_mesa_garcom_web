@@ -1,8 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { AuthContext } from "../../context/auth";
+import taNaMesaLogo from "../../assets/taNaMesaLogo.png";
+
+import '../../styles/pages/login.sass';
 
 type ILoginRequest = {
     email: string,
@@ -19,42 +22,45 @@ const schema = yup
 const Login = () => {
     const authContext = useContext(AuthContext);
 
-  if (!authContext) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+    if (!authContext) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
 
     useEffect(() => {
         console.log('rodou pagina login');
     });
 
-    const [loading, setLoading] = useState<boolean>(false);
+    // const [loading, setLoading] = useState<boolean>(false);
     // const [messageErro, setMessageErro] = useState<string>('');
-    const {login, error} = authContext;
+    const { login, error, loading } = authContext;
 
     const { register, handleSubmit, formState: { errors } } =
         useForm<ILoginRequest>({ resolver: yupResolver(schema), })
 
     const onSubmit = async (data: ILoginRequest) => {
-        setLoading(true);
+        // setLoading(true);
         login(data, true);
-        setLoading(false);
+        // setLoading(false);
     }
 
 
 
     return (
-        <>{loading ? <div>loading...</div>
-            : <div>
-                Login
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("email")} />
-                    {<p>{errors.email?.message}</p>}
-                    <input {...register("password")} />
-                    {<p>{errors.password?.message}</p>}
-                    <input type="submit" />
-                </form>
-                <p>{error}</p>
-            </div>}</>
+        <div id='loginBody'>
+            <img src={taNaMesaLogo} height='120px'/>
+            <div className='bottomLogin'>
+            <h1>Login</h1>
+            <p>app do garçom</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                {<p id='error'>{errors.email?.message}</p>}
+                <input {...register("email")} placeholder='Seu email'/>
+                {<p id='error'>{errors.password?.message}</p>}
+                <input {...register("password")} placeholder='Sua senha'/>
+                {loading ? <p>loading...</p> : <input type="submit" className='btnForm' />}
+            </form>
+            <p id='error'>{error}</p>
+            </div>
+        </div>
     );
 }
 export default Login;

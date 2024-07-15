@@ -15,6 +15,7 @@ type AuthContextType = {
     logout: () => void;
     error: string;
     notAuthStorage: boolean;
+    loading: boolean;
     setError: React.Dispatch<React.SetStateAction<string>>;
     setNotAuthStorage: React.Dispatch<React.SetStateAction<boolean>>;
     
@@ -31,6 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [userName, setUserName] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [notAuthStorage, setNotAuthStorage] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
 
     const _key = 'userCredential';
@@ -38,6 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
 
     const login = (params: IParamsLogin, isManual: boolean) => {
+        setLoading(true);
         const auth = getAuth();
         signInWithEmailAndPassword(auth, params.email, params.password)
             .then((userCredential) => {
@@ -55,8 +58,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 } else {
                     setError('Erro inesperado');
                 }
-                console.log('erro');
+                setLoading(false);
             });
+
     };
 
     const logout = () => {
@@ -72,7 +76,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, userName, setUserName, login, logout, error, setError, notAuthStorage, setNotAuthStorage }}>
+        <AuthContext.Provider value={{ user, userName, setUserName, login, logout, error, setError, notAuthStorage, loading, setNotAuthStorage }}>
             {children}
         </AuthContext.Provider>
     );
