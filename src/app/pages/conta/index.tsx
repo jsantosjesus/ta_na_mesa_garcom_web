@@ -6,7 +6,7 @@ import { IMesaEntity } from "../../entities/mesaEntity";
 import { IoArrowBack } from "react-icons/io5";
 
 import '../../styles/pages/conta.sass'
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
 
 type IParamsConta = {
     mesa: IMesaEntity
@@ -26,12 +26,21 @@ const Conta = (params: IParamsConta) => {
     const { db } = firebaseContext;
     const [loading, setLoading] = useState<boolean>(true);
     const [pedidos, setPedidos] = useState<IPedidoEntity[]>([]);
+    const [openSnack, setOpenSnack] = useState<boolean>(false);
+
+    const handleCloseSnack = (_event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {  
+        return;
+        }
+
+        setOpenSnack(false);
+    };
 
     let totalConta: number = 0;
 
     useEffect(() => {
 
-        console.log('rodou useEffect de conta');
+        // console.log('rodou useEffect de conta');
 
 
         const q = query(collection(db, "pedido"), where("conta_id", "==", params.mesa.contaAtiva), where("status", "==", "pronto"));
@@ -71,7 +80,7 @@ const Conta = (params: IParamsConta) => {
             params.handleClose();
 
         } catch (e) {
-            console.log('Erro: ' + e);
+            setOpenSnack(true);
             setLoading(false);
         }
     }
@@ -110,6 +119,12 @@ const Conta = (params: IParamsConta) => {
                 </div>
                 {loading ? <p><CircularProgress color="inherit" /></p> : <button onClick={pagarConta}>Conta paga</button>}
             </div>
+            <Snackbar
+                open={openSnack}
+                autoHideDuration={1500}
+                onClose={handleCloseSnack}
+                message="Ops, Aconteceu um erro"
+            />
         </div>
     );
 }

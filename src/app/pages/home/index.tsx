@@ -8,10 +8,10 @@ import { PiForkKnifeFill } from "react-icons/pi";
 import BuildHoraChamado from "../../components/buildHoraChamado";
 import BuildTitleChamado from "../../components/buildTitleChamado";
 import Menu from "../../components/menu";
+import { CircularProgress } from "@mui/material";
 
 
 import '../../styles/pages/home.sass'
-import { CircularProgress } from "@mui/material";
 
 const Home = () => {
 
@@ -35,7 +35,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        console.log('rodou useEffect de home');
+        // console.log('rodou useEffect de home');
 
 
         const q = query(collection(db, "chamado"), where("garcom_id", "==", user), where("status", "==", "ATIVO"));

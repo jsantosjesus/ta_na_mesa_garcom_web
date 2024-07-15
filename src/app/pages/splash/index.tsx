@@ -23,10 +23,10 @@ const Splash = () => {
 
     useEffect(() => {
         const userCredential = (localStorage.getItem('userCredential'));
-        console.log('rodeou');
+        // console.log('rodeou');
 
         if (userCredential) {
-            console.log('userCredential')
+            // console.log('userCredential')
             const userCredentialJson = JSON.parse(userCredential);
 
             const paramsLogin: IParamsLogin = {
@@ -37,7 +37,7 @@ const Splash = () => {
             login(paramsLogin, false);
         } else {
             setNotAuthStorage(true);
-            console.log('notAuthStorage');
+            // console.log('notAuthStorage');
         }
         
     });

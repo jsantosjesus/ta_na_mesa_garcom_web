@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -27,9 +27,9 @@ const Login = () => {
         throw new Error('useAuth must be used within an AuthProvider');
     }
 
-    useEffect(() => {
-        console.log('rodou pagina login');
-    });
+    // useEffect(() => {
+    //     // console.log('rodou pagina login');
+    // });
 
     // const [loading, setLoading] = useState<boolean>(false);
     // const [messageErro, setMessageErro] = useState<string>('');

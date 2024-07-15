@@ -71,7 +71,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             localStorage.removeItem(_key);
             setUser('');
           }).catch(() => {
-            console.log('error');
+            // console.log('error');
+            localStorage.removeItem(_key);
+            setUser('');
           });
     };
 

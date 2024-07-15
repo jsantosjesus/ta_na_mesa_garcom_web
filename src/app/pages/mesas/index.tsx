@@ -8,7 +8,11 @@ import Conta from "../conta";
 import Menu from "../../components/menu";
 
 import '../../styles/pages/mesas.sass'
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
+
+// interface State extends SnackbarOrigin {
+//     open: boolean;
+//   }
 
 const Mesas = () => {
 
@@ -30,9 +34,21 @@ const Mesas = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [contaOpen, setContaOpen] = useState<IMesaEntity | undefined>(undefined);
     const [mesas, setMesas] = useState<IMesaEntity[]>([]);
+    
+    const [openSnack, setOpenSnack] = useState<boolean>(false);
+
+    const handleCloseSnack = (_event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {  
+        return;
+        }
+
+        setOpenSnack(false);
+    };
+
+
 
     useEffect(() => {
-        console.log('rodou o useState');
+        // console.log('rodou o useState');
 
         const q = query(collection(db, "mesa"), where("garcom_id", "==", user));
         onSnapshot(q, (querySnapshot) => {
@@ -51,9 +67,9 @@ const Mesas = () => {
 
     }, [db, user]);
 
-    function openContaPage(mesa: IMesaEntity){
-        if(!mesa.contaAtiva){
-            console.log('toastfy mesa sem conta');
+    function openContaPage(mesa: IMesaEntity) {
+        if (!mesa.contaAtiva) {
+            setOpenSnack(true);
         } else {
             setContaOpen(mesa);
         }
@@ -65,7 +81,7 @@ const Mesas = () => {
             {!contaOpen ?
                 <>
                     <Menu title="Mesas" />
-                    {loading ? <div className="loading"><CircularProgress color="inherit"/></div> :
+                    {loading ? <div className="loading"><CircularProgress color="inherit" /></div> :
 
                         mesas.map((mesa) => {
                             return <div onClick={() => openContaPage(mesa)} key={mesa.id} className={`mesa ${mesa.contaAtiva ? "ocupada" : "livre"}`}>
@@ -75,8 +91,14 @@ const Mesas = () => {
                     }
                 </>
                 :
-                <Conta mesa={contaOpen} handleClose={() => setContaOpen(undefined)}/>
+                <Conta mesa={contaOpen} handleClose={() => setContaOpen(undefined)} />
             }
+            <Snackbar
+                open={openSnack}
+                autoHideDuration={1500}
+                onClose={handleCloseSnack}
+                message="Essa mesa não tem conta ativa"
+            />
         </div>
     );
 }

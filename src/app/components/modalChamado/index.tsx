@@ -3,9 +3,9 @@ import { IChamadoEntity } from "../../entities/chamadoEntity";
 import BuildTitleChamado from "../buildTitleChamado";
 import { FirebaseContext } from "../../context/firebaseAppContext";
 import { doc, updateDoc } from "firebase/firestore";
+import { CircularProgress, Snackbar } from "@mui/material";
 
 import '../../styles/components/modalChamado.sass';
-import { CircularProgress } from "@mui/material";
 
 type IParamsModalChamado = {
     chamado: IChamadoEntity,
@@ -23,6 +23,17 @@ const ModalChamado = (params: IParamsModalChamado) => {
     const { db } = firebaseContext;
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [openSnack, setOpenSnack] = useState<boolean>(false);
+
+
+    const handleCloseSnack = (_event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {  
+        return;
+        }
+
+    setOpenSnack(false);
+  };
+
 
     async function setChamadoAtentido() {
         setLoading(true);
@@ -39,7 +50,8 @@ const ModalChamado = (params: IParamsModalChamado) => {
             params.handleClose();
 
         } catch (e) {
-            console.log('Erro: ' + e)
+            // console.log('Erro: ' + e)
+            setOpenSnack(true);
         }
 
     }
@@ -52,6 +64,12 @@ const ModalChamado = (params: IParamsModalChamado) => {
                 <b><BuildTitleChamado tipo={params.chamado.tipo} mesaNumero={params.chamado.mesaNumero} /></b>
                 {loading ? <p><CircularProgress color="inherit"/></p> : <button onClick={setChamadoAtentido}>Chamado atendido</button>}
             </div>
+            <Snackbar
+                open={openSnack}
+                autoHideDuration={1500}
+                onClose={handleCloseSnack}
+                message="Ops, Aconteceu um erro!"
+            />
         </div>
     );
 }
