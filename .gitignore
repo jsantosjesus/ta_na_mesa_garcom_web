@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
 
-src/firebaseConfig.tsx
+# src/firebaseConfig.tsx
 package-lock.json

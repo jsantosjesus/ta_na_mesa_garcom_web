@@ -56,7 +56,7 @@ const Login = () => {
                 {<p id='error'>{errors.email?.message}</p>}
                 <input {...register("email")} placeholder='Seu email'/>
                 {<p id='error'>{errors.password?.message}</p>}
-                <input {...register("password")} placeholder='Sua senha'/>
+                <input {...register("password")} placeholder='Sua senha' type='password'/>
                 {loading ?  <p><CircularProgress color='inherit'/></p> : <input type="submit" className='btnForm' />}
             </form>
             <p id='error'>{error}</p>

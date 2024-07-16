@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode } from 'react';
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebaseConfig';
+import { firebaseConfig } from '../../../firebaseConfig';
 import { Firestore, getFirestore } from 'firebase/firestore';
 
 type IFirebasseAppContext = {
