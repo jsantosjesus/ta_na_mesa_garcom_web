@@ -27,12 +27,6 @@ const Login = () => {
         throw new Error('useAuth must be used within an AuthProvider');
     }
 
-    // useEffect(() => {
-    //     // console.log('rodou pagina login');
-    // });
-
-    // const [loading, setLoading] = useState<boolean>(false);
-    // const [messageErro, setMessageErro] = useState<string>('');
     const { login, error, loading } = authContext;
 
     const { register, handleSubmit, formState: { errors } } =
